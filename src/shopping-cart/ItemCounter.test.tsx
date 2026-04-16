@@ -31,7 +31,7 @@ describe('ItemCounter', () => {
   test('should decrease the count when -1 button is pressed', () => {
     const quantity = 5;
     render(<ItemCounter name="Orange" quantity={quantity} />);
-    const [,buttonDecrease] = screen.getAllByRole('button');
+    const [, buttonDecrease] = screen.getAllByRole('button');
     fireEvent.click(buttonDecrease);
     fireEvent.click(buttonDecrease);
     expect(screen.getByText(3)).toBeDefined();
@@ -43,5 +43,22 @@ describe('ItemCounter', () => {
     fireEvent.click(buttonDecrease);
     expect(screen.getByText(1)).not.toBeNull();
 
-   });
+  });
+  test('shoud change to red when count is 1', () => {
+    const quantity = 1;
+    const name = 'Test item';
+    render(<ItemCounter name={name} quantity={quantity} />);
+    const itemText = screen.getByText(name);
+    expect(itemText.style.color).toBe('red');
+
+  });
+
+  test('should change to black when count is greater than 1', () => {
+    const quantity = 2;
+    const name = 'Test item';
+    render(<ItemCounter name={name} quantity={quantity} />);
+    const itemText = screen.getByText(name);
+    expect(itemText.style.color).toBe('black');
+  });
+
 });
